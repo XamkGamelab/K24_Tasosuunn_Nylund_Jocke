@@ -7,9 +7,24 @@ public class Player : MonoBehaviour
     Rigidbody rb;
     public float MoveSpeed = 2;
 
+    public GameObject player_camera;
+
+    public float speedH = 2.0f;
+    public float speedV = 2.0f;
+
+    private float yaw = 0.0f;
+    private float pitch = 0.0f;
+
+    private const float Y_ANGLE_MIN = -85f;
+    private const float Y_ANGLE_MAX = 85f;
+
+    public GameObject projectile;
+    public Transform projectile_spawnpoint;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
@@ -42,14 +57,25 @@ public class Player : MonoBehaviour
 
         // Player Rotation
 
-        float VerticalInput = Input.GetAxis("Mouse Y");
-        float HorizontalInput = Input.GetAxis("Mouse X");
+        // Mouse Inputs
+        yaw += speedH * Input.GetAxis("Mouse X");
+        pitch -= speedV * Input.GetAxis("Mouse Y");
 
-        Vector3 playerRotation = transform.rotation.eulerAngles;
-        playerRotation.z = 0;
-        transform.rotation = Quaternion.Euler(playerRotation);
+        // Transform camera rotation
+        player_camera.transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
 
-        transform.Rotate(-VerticalInput, HorizontalInput, 0);
+        // Transform player rotation to stay same direction with camera
+        transform.eulerAngles = new Vector3(0.0f, yaw, 0.0f);
+
+        // Clamp the max/min look angle
+        pitch = Mathf.Clamp(pitch, Y_ANGLE_MIN, Y_ANGLE_MAX);
+
+        // Shooting
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Instantiate(projectile, projectile_spawnpoint);
+        }
 
 
     }
