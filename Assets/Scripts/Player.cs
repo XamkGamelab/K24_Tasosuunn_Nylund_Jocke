@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -20,6 +21,20 @@ public class Player : MonoBehaviour
 
     public GameObject projectile;
     public Transform projectile_spawnpoint;
+
+    public bool PistolTaken = false;
+
+    public GameObject muzzleFlash;
+    public Transform pistol_projectile_spawnpoint;
+    public AudioSource pistolSource;
+    public AudioClip pistol_shot;
+
+    public GameObject bullet;
+
+    public int MaxAmmo = 10;
+    public int CurrentAmmo = 10;
+    public TextMeshProUGUI ammotext;
+    
 
     private void Start()
     {
@@ -70,13 +85,32 @@ public class Player : MonoBehaviour
         // Clamp the max/min look angle
         pitch = Mathf.Clamp(pitch, Y_ANGLE_MIN, Y_ANGLE_MAX);
 
-        // Shooting
+        // Shooting snowballs
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && PistolTaken == false)
         {
             Instantiate(projectile, projectile_spawnpoint);
         }
 
+        // Shooting with pistol
 
+        if (Input.GetKeyDown(KeyCode.Mouse0) && PistolTaken == true && CurrentAmmo > 0)
+        {
+            --CurrentAmmo;
+            Instantiate(muzzleFlash, pistol_projectile_spawnpoint);
+            Instantiate(bullet, pistol_projectile_spawnpoint);
+            pistolSource.PlayOneShot(pistol_shot);
+        }
+
+        ammotext.text = "Ammo: " + CurrentAmmo + " / 10";
+
+    }
+
+    private void OnDrawGizmos()
+    {
+        Vector3 spawnpoint = pistol_projectile_spawnpoint.transform.position;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(spawnpoint, -pistol_projectile_spawnpoint.right * 30);
     }
 }
