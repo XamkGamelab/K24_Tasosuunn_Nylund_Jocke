@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8348818442147253086}
   - component: {fileID: 8795767417327137918}
   - component: {fileID: 2361206876382740057}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -147,3 +147,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile_bank: {fileID: 0}
+  hitParticles: {fileID: 4662056557969797860, guid: cac7eec64c341674cb33ed88e4cf96c9, type: 3}

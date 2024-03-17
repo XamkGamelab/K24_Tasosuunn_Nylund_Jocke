@@ -6,7 +6,10 @@ using TMPro;
 public class Player : MonoBehaviour
 {
     Rigidbody rb;
-    public float MoveSpeed = 2;
+    public float CurrentSpeed;
+    public float WalkSpeed = 3f;
+    public float SprintSpeed = 7f;
+    public int CurrentHealth = 100;
 
     public GameObject player_camera;
 
@@ -28,14 +31,27 @@ public class Player : MonoBehaviour
     public Transform pistol_projectile_spawnpoint;
     public AudioSource pistolSource;
     public AudioClip pistol_shot;
+    public AudioClip reload;
 
     public GameObject bullet;
 
     public int MaxAmmo = 10;
     public int CurrentAmmo = 10;
     public TextMeshProUGUI ammotext;
-    
+    public GameObject reloadText;
+    public GameObject PressR_text;
 
+    public TextMeshProUGUI healthText;
+
+    public bool isReloading;
+    public bool doorZone;
+    public bool DamageZone;
+
+    public Animator InteractableDoor;
+
+    public AudioSource player_source;
+    public AudioClip damage_sound;
+    
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -44,30 +60,41 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        healthText.text = CurrentHealth + " / 100";
+
         // Player Movement
 
         // Forward
         if (Input.GetKey(KeyCode.W))
         {
-            rb.velocity = transform.forward * MoveSpeed;
+            rb.velocity = transform.forward * CurrentSpeed;
         }
 
         // Backward
         if (Input.GetKey(KeyCode.S))
         {
-            rb.velocity = -transform.forward * MoveSpeed;
+            rb.velocity = -transform.forward * CurrentSpeed;
         }
 
         // Right
         if (Input.GetKey(KeyCode.D))
         {
-            rb.velocity = transform.right * MoveSpeed;
+            rb.velocity = transform.right * CurrentSpeed;
         }
 
         // Left
         if (Input.GetKey(KeyCode.A))
         {
-            rb.velocity = -transform.right * MoveSpeed;
+            rb.velocity = -transform.right * CurrentSpeed;
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            CurrentSpeed = SprintSpeed;
+        }
+        else
+        {
+            CurrentSpeed = WalkSpeed;
         }
 
         // Player Rotation
@@ -94,7 +121,7 @@ public class Player : MonoBehaviour
 
         // Shooting with pistol
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && PistolTaken == true && CurrentAmmo > 0)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && PistolTaken == true && CurrentAmmo > 0 && isReloading == false)
         {
             --CurrentAmmo;
             Instantiate(muzzleFlash, pistol_projectile_spawnpoint);
@@ -104,6 +131,80 @@ public class Player : MonoBehaviour
 
         ammotext.text = "Ammo: " + CurrentAmmo + " / 10";
 
+        // Reloading pistol
+
+        if (Input.GetKeyDown(KeyCode.R) && CurrentAmmo <= 9)
+        {
+            isReloading = true;
+            reloadText.SetActive(true);
+            PressR_text.SetActive(false);
+            pistolSource.PlayOneShot(reload);
+
+            StartCoroutine(ReloadTime());
+        }
+
+        if (CurrentAmmo <= 0 && isReloading == false)
+        {
+            PressR_text.SetActive(true);
+        }
+        else if (isReloading == true)
+        {
+            PressR_text.SetActive(false);
+        }
+
+        // Door Opening
+        if (Input.GetKeyDown(KeyCode.F) && doorZone == true)
+        {
+            Debug.Log("Open Door");
+            InteractableDoor.SetBool("OpenDoor", true);
+        }
+    }
+
+    // Checking Door Trigger Zone
+    private void OnTriggerEnter(Collider other)
+    {
+        // Door zone bool changing
+        if (other.CompareTag("DoorOpener"))
+        {
+            doorZone = true;
+        }
+
+        // Damage taking
+        if (other.CompareTag("DamageZone"))
+        {
+            Debug.Log("Damage Zone");
+            DamageZone = true;
+            StartCoroutine(DamageTaking());
+        }
+    }
+
+    IEnumerator DamageTaking()
+    {
+        while (true)
+        {
+            Debug.Log("Damage taken!");
+            player_source.PlayOneShot(damage_sound);
+            --CurrentHealth;
+            yield return new WaitForSeconds(1);
+
+            if (DamageZone == false)
+            break;
+        }
+        
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        doorZone = false;
+        DamageZone = false;
+    }
+
+    IEnumerator ReloadTime()
+    {
+        yield return new WaitForSeconds(4);
+        CurrentAmmo = MaxAmmo;
+        reloadText.SetActive(false);
+        isReloading = false;
     }
 
     private void OnDrawGizmos()

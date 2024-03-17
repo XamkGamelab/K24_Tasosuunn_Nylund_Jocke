@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     Rigidbody rb;
     public Transform projectile_bank;
+    public GameObject hitParticles;
 
     void Start()
     {
@@ -20,7 +21,15 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Destroy(gameObject);
-    }
+        if (collision.collider.CompareTag("Enemy"))
+        {
+            foreach (var contact in collision.contacts)
+            {
+                var Hit = Instantiate(hitParticles, contact.point, Quaternion.identity);
+            }
+        }
 
+        Destroy(gameObject);
+
+    }
 }

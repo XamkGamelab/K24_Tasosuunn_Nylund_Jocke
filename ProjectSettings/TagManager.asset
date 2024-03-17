@@ -5,11 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bullet
+  - Enemy
+  - DoorOpener
+  - DamageZone
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Bullet
   - Water
   - UI
   - 
