@@ -12,6 +12,7 @@ public class DoorHandler : MonoBehaviour
     public AudioClip door_speech;
 
     public bool SoundPlayed = false;
+    public bool firstDoorOpened = false;
 
     private void Update()
     {
@@ -23,6 +24,7 @@ public class DoorHandler : MonoBehaviour
             if (SoundPlayed == false)
             {
                 SoundPlayed = true;
+                firstDoorOpened = true;
                 soundManager.PlayOneShot(door_speech);
             }
             

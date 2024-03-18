@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     public bool EnemyFollowing = false;
 
     public GameObject player;
+    public Transform enemy_bank;
 
     private Transform target;
     private NavMeshAgent agent;
@@ -25,6 +26,12 @@ public class Enemy : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         timer = wanderTimer;
+    }
+
+    void Start()
+    {
+        transform.parent = enemy_bank;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()
