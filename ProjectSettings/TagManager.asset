@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - DoorOpener
   - DamageZone
+  - DoorOpener2
   layers:
   - Default
   - TransparentFX

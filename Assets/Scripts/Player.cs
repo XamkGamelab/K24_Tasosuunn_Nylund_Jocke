@@ -42,12 +42,15 @@ public class Player : MonoBehaviour
     public GameObject PressR_text;
 
     public TextMeshProUGUI healthText;
+    public GameObject doorText;
 
     public bool isReloading;
     public bool doorZone;
+    public bool doorZone2;
     public bool DamageZone;
 
     public Animator InteractableDoor;
+    public Animator InteractableDoor_2;
 
     public AudioSource player_source;
     public AudioClip damage_sound;
@@ -158,6 +161,13 @@ public class Player : MonoBehaviour
             Debug.Log("Open Door");
             InteractableDoor.SetBool("OpenDoor", true);
         }
+
+        // Door 2 Opening
+        if (Input.GetKeyDown(KeyCode.F) && doorZone2 == true)
+        {
+            Debug.Log("Open Door");
+            InteractableDoor_2.SetBool("DoorOpen2", true);
+        }
     }
 
     // Checking Door Trigger Zone
@@ -167,6 +177,16 @@ public class Player : MonoBehaviour
         if (other.CompareTag("DoorOpener"))
         {
             doorZone = true;
+
+            doorText.SetActive(true);
+
+        }
+
+        if (other.CompareTag("DoorOpener2"))
+        {
+            doorZone2 = true;
+
+            doorText.SetActive(true);
         }
 
         // Damage taking
@@ -196,7 +216,9 @@ public class Player : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         doorZone = false;
+        doorZone2 = false;
         DamageZone = false;
+        doorText.SetActive(false);
     }
 
     IEnumerator ReloadTime()
