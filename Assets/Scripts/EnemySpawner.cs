@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public DoorHandler doorhandler;
+    public Player player;
 
     public Transform EnemySpawnLocation;
     public GameObject EnemyObject;
@@ -12,7 +12,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
-        if (doorhandler.firstDoorOpened == true && EnemySpawned == false)
+        if (player.doorZone == true && EnemySpawned == false)
         {
             Instantiate(EnemyObject, EnemySpawnLocation);
             EnemySpawned = true;
