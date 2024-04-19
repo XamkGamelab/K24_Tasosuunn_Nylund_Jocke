@@ -54,6 +54,8 @@ public class Player : MonoBehaviour
 
     public AudioSource player_source;
     public AudioClip damage_sound;
+
+    public ButtonPuzzle puzzleManager;
     
     private void Start()
     {
@@ -196,6 +198,27 @@ public class Player : MonoBehaviour
             DamageZone = true;
             StartCoroutine(DamageTaking());
         }
+
+        if (other.CompareTag("Blue"))
+        {
+            Debug.Log("Blue");
+            puzzleManager.blue_button = true;
+
+        }
+
+        if (other.CompareTag("Yellow"))
+        {
+            Debug.Log("Yellow");
+            puzzleManager.yellow_button = true;
+            
+        }
+
+        if (other.CompareTag("Red"))
+        {
+            Debug.Log("Red");
+            puzzleManager.red_button = true;
+
+        }
     }
 
     IEnumerator DamageTaking()
@@ -219,6 +242,9 @@ public class Player : MonoBehaviour
         doorZone2 = false;
         DamageZone = false;
         doorText.SetActive(false);
+        puzzleManager.yellow_button = false;
+        puzzleManager.blue_button = false;
+        puzzleManager.red_button = false;
     }
 
     IEnumerator ReloadTime()

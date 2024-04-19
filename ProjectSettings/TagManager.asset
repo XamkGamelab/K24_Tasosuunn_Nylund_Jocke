@@ -9,6 +9,10 @@ TagManager:
   - DoorOpener
   - DamageZone
   - DoorOpener2
+  - Nappi
+  - Yellow
+  - Blue
+  - Red
   layers:
   - Default
   - TransparentFX
