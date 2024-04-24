@@ -10,6 +10,8 @@ public class ButtonPuzzle : MonoBehaviour
     public bool yellow_activated = false;
     public bool red_activated = false;
 
+    public Animator doorAnimator3;
+
     public GameObject blue_light, yellow_light, red_light;
 
     void Update()
@@ -30,6 +32,11 @@ public class ButtonPuzzle : MonoBehaviour
         {
             red_light.SetActive(true);
             red_activated = true;
+        }
+
+        if (blue_activated == true &&  yellow_activated == true && red_activated == true) 
+        {
+            doorAnimator3.SetBool("DoorOpen3", true);
         }
     }
 }
