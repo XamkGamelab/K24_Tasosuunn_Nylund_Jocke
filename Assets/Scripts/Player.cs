@@ -50,6 +50,7 @@ public class Player : MonoBehaviour
     public bool DamageZone;
     public bool EnemyTrigger1;
     public bool EnemyTrigger2;
+    public bool BossTrigger;
 
     public Animator InteractableDoor;
     public Animator InteractableDoor_2;
@@ -230,6 +231,11 @@ public class Player : MonoBehaviour
         if (other.CompareTag("EnemyTrigger2"))
         {
             EnemyTrigger2 = true;
+        }
+
+        if (other.CompareTag("BossTrigger"))
+        {
+            BossTrigger = true;
         }
     }
 

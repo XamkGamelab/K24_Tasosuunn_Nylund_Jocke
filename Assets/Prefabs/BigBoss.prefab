@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 1513067065760706488}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 32.72, y: 1.89, z: 56.18}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -123,7 +123,7 @@ MonoBehaviour:
   wanderRadius: 0
   wanderTimer: 0
   minDistance: 15
-  EnemyHealth: 15
+  EnemyHealth: 20
   EnemyFollowing: 0
   player: {fileID: 0}
   enemy_bank: {fileID: 0}

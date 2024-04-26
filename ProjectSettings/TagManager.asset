@@ -15,6 +15,7 @@ TagManager:
   - Red
   - EnemyTrigger1
   - EnemyTrigger2
+  - BossTrigger
   layers:
   - Default
   - TransparentFX
