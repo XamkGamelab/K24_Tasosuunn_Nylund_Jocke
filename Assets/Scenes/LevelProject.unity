@@ -587,7 +587,7 @@ Animator:
   m_GameObject: {fileID: 144099651}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e1abb47819e0429439f0bb19ae0a8373, type: 2}
+  m_Controller: {fileID: 9100000, guid: e8535a6a8a136c74f9bf2d3652449962, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1695,6 +1695,7 @@ MonoBehaviour:
   blue_light: {fileID: 1189310082}
   yellow_light: {fileID: 1832225921}
   red_light: {fileID: 781991598}
+  door3animator: {fileID: 144099653}
 --- !u!4 &392654861
 Transform:
   m_ObjectHideFlags: 0
