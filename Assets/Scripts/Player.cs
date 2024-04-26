@@ -48,6 +48,8 @@ public class Player : MonoBehaviour
     public bool doorZone;
     public bool doorZone2;
     public bool DamageZone;
+    public bool EnemyTrigger1;
+    public bool EnemyTrigger2;
 
     public Animator InteractableDoor;
     public Animator InteractableDoor_2;
@@ -218,6 +220,16 @@ public class Player : MonoBehaviour
             Debug.Log("Red");
             puzzleManager.red_button = true;
 
+        }
+
+        if (other.CompareTag("EnemyTrigger1"))
+        {
+            EnemyTrigger1 = true;
+        }
+
+        if (other.CompareTag("EnemyTrigger2"))
+        {
+            EnemyTrigger2 = true;
         }
     }
 

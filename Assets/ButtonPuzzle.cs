@@ -12,6 +12,8 @@ public class ButtonPuzzle : MonoBehaviour
 
     public GameObject blue_light, yellow_light, red_light;
 
+    public GameObject PressFtoInteract;
+
     public Animator door3animator;
 
     void Update()
@@ -37,6 +39,15 @@ public class ButtonPuzzle : MonoBehaviour
         if (blue_activated == true && yellow_activated == true && red_activated == true)
         {
             door3animator.SetBool("DoorOpen3", true);
+        }
+
+        if (blue_button == true || red_button == true || yellow_button == true)
+        {
+            PressFtoInteract.SetActive(true);
+        } 
+        else
+        {
+            PressFtoInteract.SetActive(false);
         }
     }
 }
