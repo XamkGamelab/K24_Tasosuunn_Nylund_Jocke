@@ -17,6 +17,8 @@ public class Enemy : MonoBehaviour
     public GameObject player;
     public Transform enemy_bank;
 
+    public Player playerScript;
+
     private Transform target;
     private NavMeshAgent agent;
     private float timer;
@@ -60,7 +62,15 @@ public class Enemy : MonoBehaviour
 
         if (EnemyHealth <= 0)
         {
-            Destroy(gameObject);
+            if (gameObject.CompareTag("Boss"))
+            {
+                Destroy(gameObject);
+            }
+
+            if (gameObject.CompareTag("Enemy"))
+            {
+                Destroy(gameObject);
+            }
         }
 
     }

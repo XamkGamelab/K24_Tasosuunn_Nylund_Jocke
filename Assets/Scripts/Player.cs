@@ -51,12 +51,18 @@ public class Player : MonoBehaviour
     public bool EnemyTrigger1;
     public bool EnemyTrigger2;
     public bool BossTrigger;
+    public bool GotKey = false;
 
     public Animator InteractableDoor;
     public Animator InteractableDoor_2;
+    public Animator finaldoor;
+
+    public GameObject final_door_light;
 
     public AudioSource player_source;
     public AudioClip damage_sound;
+
+    public AudioClip Victory;
 
     public ButtonPuzzle puzzleManager;
     
@@ -173,6 +179,12 @@ public class Player : MonoBehaviour
             Debug.Log("Open Door");
             InteractableDoor_2.SetBool("DoorOpen2", true);
         }
+
+        if (GotKey == true)
+        {
+            final_door_light.SetActive(true);
+            finaldoor.SetBool("DoorOpen4", true);
+        }
     }
 
     // Checking Door Trigger Zone
@@ -236,6 +248,17 @@ public class Player : MonoBehaviour
         if (other.CompareTag("BossTrigger"))
         {
             BossTrigger = true;
+        }
+
+        if (other.CompareTag("Key"))
+        {
+            GotKey = true;
+            Destroy(other.gameObject);
+        }
+
+        if (other.CompareTag("Victory"))
+        {
+            player_source.PlayOneShot(Victory);
         }
     }
 

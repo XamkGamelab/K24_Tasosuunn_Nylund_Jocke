@@ -180,10 +180,11 @@ MonoBehaviour:
   wanderRadius: 0
   wanderTimer: 0
   minDistance: 15
-  EnemyHealth: 3
+  EnemyHealth: 5
   EnemyFollowing: 0
   player: {fileID: 0}
   enemy_bank: {fileID: 0}
+  keyObject: {fileID: 971128185335632576, guid: 3ca18e2785d43e541b533fa63b5557c0, type: 3}
   Offset: 0.5
 --- !u!65 &7811277444174371387
 BoxCollider:

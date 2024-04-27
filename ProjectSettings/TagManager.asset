@@ -16,6 +16,9 @@ TagManager:
   - EnemyTrigger1
   - EnemyTrigger2
   - BossTrigger
+  - Boss
+  - Key
+  - Victory
   layers:
   - Default
   - TransparentFX
